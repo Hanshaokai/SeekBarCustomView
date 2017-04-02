@@ -117,7 +117,7 @@ public class SlidingBlockView extends View {
             case MeasureSpec.EXACTLY: //如果是固定的大小，和默认大小比较，取最大值。match_parent or 固定大小
                 break;
         }*/
-        setMeasuredDimension(sizeW, sizeH);
+        setMeasuredDimension(sizeW, 110);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class SlidingBlockView extends View {
             case MotionEvent.ACTION_MOVE:
                 //获取滑动 x坐标
                 if ((xToLeftView * mWidth + mInerWidth / 2 < x && x < (1 - xToLeftView) * mWidth - mInerWidth + mInerWidth / 2)) {
-
+                    if (mlistener == null) return true;//没设置监听不回调
                     for (int i = 0; i < mountFlip; i++) {
                         if (xToLeftView * mWidth + i * mInerWidth < x && x < (i + 1) * mInerWidth + xToLeftView * mWidth) {
                             //找到所在区间 回调位置
