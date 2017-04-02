@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="com.example.lxr_yfb.seekbarcustomview.MainActivity">
 
-    <com.example.lxr_yfb.seekbarcustomview.SeekBarCustomeView
+    <com.example.lxr_yfb.seekbarcustomview.SlidingBlockView
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
         android:layout_height="50dp" />

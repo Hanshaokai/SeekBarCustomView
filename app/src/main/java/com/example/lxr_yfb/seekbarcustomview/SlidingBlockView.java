@@ -12,7 +12,7 @@ import android.view.View;
 /**
  * Created by hanshaokai on 2017/3/27 18:09
  */
-public class SeekBarCustomeView extends View {
+public class SlidingBlockView extends View {
     private float mWidth;// view 的宽
     private float mHeight;//view 的高
     private Paint mBorderPaint;//外滑块
@@ -28,7 +28,7 @@ public class SeekBarCustomeView extends View {
     private Paint mSidePaint; //外滑块边沿
     private Paint mDecrPaint;
 
-    interface SelecteItemTotalNumLisnter {
+    public interface SelecteItemTotalNumLisnter {
         void getSelectItemTotalNum(int totalNum);
     }
 
@@ -38,6 +38,7 @@ public class SeekBarCustomeView extends View {
         mdefaultSelecItemsTotal = defaultSelecItemsTotal;
         // 有几个数值就把x轴分成几份
         Log.d("tag", mWidth + "initData mWidth");
+        initData();
         invalidate();
     }
 
@@ -53,17 +54,17 @@ public class SeekBarCustomeView extends View {
         moveX = (mdefaultSelecItemsTotal - 1) * mInerWidth + xToLeftView * mWidth;
     }
 
-    public SeekBarCustomeView(Context context) {
+    public SlidingBlockView(Context context) {
         super(context);
         initView();
     }
 
-    public SeekBarCustomeView(Context context, AttributeSet attrs) {
+    public SlidingBlockView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
 
-    public SeekBarCustomeView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SlidingBlockView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
 
@@ -140,13 +141,13 @@ public class SeekBarCustomeView extends View {
         canvas.drawLine((moveX - mInerWidth / 2 + 5 + moveX - mInerWidth / 2) / 2, yToTopView * mHeight + 15
                 , (moveX - mInerWidth / 2 + 5 + moveX - mInerWidth / 2) / 2, mHeight * (1 - yToTopView) - 15, mDecrPaint);
         //画内滑块两边标识 右边
-        canvas.drawRect(moveX - mInerWidth / 2+mInerWidth-5, yToTopView * mHeight + 25,  moveX - mInerWidth / 2+mInerWidth, mHeight * (1 - yToTopView) - 25, mDecrPaint);
+        canvas.drawRect(moveX - mInerWidth / 2 + mInerWidth - 5, yToTopView * mHeight + 25, moveX - mInerWidth / 2 + mInerWidth, mHeight * (1 - yToTopView) - 25, mDecrPaint);
         //横线
-        canvas.drawLine(moveX - mInerWidth / 2+mInerWidth-5, ((yToTopView * mHeight + 18) + (mHeight * (1 - yToTopView) - 18)) / 2,
-                 moveX - mInerWidth / 2+mInerWidth, ((yToTopView * mHeight + 18) + (mHeight * (1 - yToTopView) - 18)) / 2, mDecrPaint);
+        canvas.drawLine(moveX - mInerWidth / 2 + mInerWidth - 5, ((yToTopView * mHeight + 18) + (mHeight * (1 - yToTopView) - 18)) / 2,
+                moveX - mInerWidth / 2 + mInerWidth, ((yToTopView * mHeight + 18) + (mHeight * (1 - yToTopView) - 18)) / 2, mDecrPaint);
         //竖线
-        canvas.drawLine((moveX - mInerWidth / 2  + moveX - mInerWidth / 2-5.5f) / 2+mInerWidth, yToTopView * mHeight + 15
-                , (moveX - mInerWidth / 2  + moveX - mInerWidth / 2-5.5f) / 2+mInerWidth, mHeight * (1 - yToTopView) - 15, mDecrPaint);
+        canvas.drawLine((moveX - mInerWidth / 2 + moveX - mInerWidth / 2 - 5.5f) / 2 + mInerWidth, yToTopView * mHeight + 15
+                , (moveX - mInerWidth / 2 + moveX - mInerWidth / 2 - 5.5f) / 2 + mInerWidth, mHeight * (1 - yToTopView) - 15, mDecrPaint);
         Log.d("tag", mWidth + "2mWidth");
         Log.d("tag", mHeight + "2mHeight");
     }
