@@ -9,12 +9,14 @@ public class MainActivity extends AppCompatActivity {
 
     private SlidingBlockView viewById;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewById = (SlidingBlockView) findViewById(R.id.seekbar);
-        viewById.setSelecteItemTotalNumLisnter(10, 2, new SlidingBlockView.SelecteItemTotalNumLisnter() {
+
+        viewById.setSelecteItemTotalNumLisnter(10, 10, new SlidingBlockView.SelecteItemTotalNumLisnter() {
             @Override
             public void getSelectItemTotalNum(int totalNum) {
                 Log.d("tag", " jj" + totalNum);

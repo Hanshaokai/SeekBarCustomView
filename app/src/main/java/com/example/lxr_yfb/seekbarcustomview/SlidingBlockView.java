@@ -51,7 +51,7 @@ public class SlidingBlockView extends View {
         Log.d("tag", mWidth + "initData mWidth");
         mInerWidth = mWidth * (1 - 2 * xToLeftView) / mountFlip;
         Log.d("tag", mInerWidth + "mInerWidth");
-        moveX = (mdefaultSelecItemsTotal - 1) * mInerWidth + xToLeftView * mWidth;
+        moveX = (mdefaultSelecItemsTotal - 1) * mInerWidth + xToLeftView * mWidth + mInerWidth / 2;
     }
 
     public SlidingBlockView(Context context) {
@@ -98,9 +98,24 @@ public class SlidingBlockView extends View {
         mSidePaint.setAntiAlias(true);
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        Log.d("tag", getResources().getDisplayMetrics().scaledDensity + "    " + getResources().getDisplayMetrics().densityDpi
+                + "onFinishInflate" + getResources().getDisplayMetrics().density);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+
+        Log.d("tag", changed ? "改变1" + left + "   " + top + " " + right + " " + "   " + bottom : "没改变" + left + "   " + top + " " + right + " " + "   " + bottom);
+        super.onLayout(changed, left, top, right, bottom);
+        Log.d("tag", changed ? "改变2" + left + "   " + top + " " + right + " " + "   " + bottom : "没改变" + left + "   " + top + " " + right + " " + "   " + bottom);
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int modeH = MeasureSpec.getMode(heightMeasureSpec);
         int modeW = MeasureSpec.getMode(widthMeasureSpec);
@@ -117,7 +132,8 @@ public class SlidingBlockView extends View {
             case MeasureSpec.EXACTLY: //如果是固定的大小，和默认大小比较，取最大值。match_parent or 固定大小
                 break;
         }*/
-        setMeasuredDimension(sizeW, 110);
+        Log.d("tag", "onMeasure" + sizeH + "    " + sizeW);
+        setMeasuredDimension(sizeW, sizeH);
     }
 
     @Override
@@ -148,14 +164,13 @@ public class SlidingBlockView extends View {
         //竖线
         canvas.drawLine((moveX - mInerWidth / 2 + moveX - mInerWidth / 2 - 5.5f) / 2 + mInerWidth, yToTopView * mHeight + 15
                 , (moveX - mInerWidth / 2 + moveX - mInerWidth / 2 - 5.5f) / 2 + mInerWidth, mHeight * (1 - yToTopView) - 15, mDecrPaint);
-        Log.d("tag", mWidth + "2mWidth");
-        Log.d("tag", mHeight + "2mHeight");
+
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Log.d("onSizeChanged", "测量" + w + "  " + h);
+        Log.d("onSizeChanged", "测量" + w + "  " + h + "之前大小" + oldw + "     " + oldh);
         mWidth = w;
         mHeight = h;
         initData();
@@ -194,5 +209,14 @@ public class SlidingBlockView extends View {
                 break;
         }
         return super.onTouchEvent(event);
+    }
+    public  int dip2px( float dipValue){
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int)(dipValue * scale + 0.5f);
+    }
+
+    public  int px2dip( float pxValue){
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int)(pxValue / scale + 0.5f);
     }
 }
